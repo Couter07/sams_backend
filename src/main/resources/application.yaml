@@ -11,7 +11,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  jackson:
+  Jackson:
     serialization:
       indent-output: true
 
@@ -22,6 +22,7 @@ logging:
   level:
     root: info
     org.springframework: INFO
+    org.hibernate.sql: debug
 
 server:
   port: 8080
