@@ -1,6 +1,8 @@
 package org.server.sams.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
+import org.server.sams.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -20,6 +22,13 @@ public class GlobalHandlerException {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(resourceNotFoundException);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ex);
     }
 
 

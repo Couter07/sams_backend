@@ -2,6 +2,7 @@ package org.server.sams.controller.admin;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.server.sams.dto.User.UserSaveDto;
 import org.server.sams.service.admin.AdminUserService;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,11 @@ import org.springframework.web.bind.annotation.*;
 public class AdminUserController {
 
     private final AdminUserService adminUserService;
+
+    @GetMapping("/message")
+    public ResponseEntity<?> sendMessage() {
+        return ResponseEntity.ok("Hello world, test JWT authentication");
+    }
 
     @PostMapping("/add")
     public ResponseEntity<?> saveUser(@Valid @RequestBody UserSaveDto userSaveDto) {

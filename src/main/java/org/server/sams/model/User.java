@@ -6,9 +6,15 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 
 @Getter
@@ -20,7 +26,7 @@ import java.time.LocalDate;
 @Entity
 @EntityScan("org.server.sams.model")
 @Table(name = "users", schema = "sams")
-public class User {
+public class User implements UserDetails {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -67,4 +73,25 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
+
+    @NotNull
+    @Lob
+    @Column(name = "role")
+    private String role;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority(this.getRole()));
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordHashed;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }

@@ -34,3 +34,7 @@ springdoc:
     path: /docs
   swagger-ui:
     path: /swagger
+
+jwt:
+  secret-key: CAMONANHDOMIXINANANANAANHPHUNGTHANHDO-CAMONANHDOMIXI77778888nlu
+  expiration: 86400000
